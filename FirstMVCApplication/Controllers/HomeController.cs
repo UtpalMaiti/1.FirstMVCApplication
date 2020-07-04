@@ -32,13 +32,13 @@ namespace FirstMVCApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                SqlConnection conn = new SqlConnection(@"server=.\SQLEXPRESS;database=EmployeeDB;integrated security=true");
+                SqlConnection conn = new SqlConnection(@"server=HP-UTPAL;database=EmployeeDB;integrated security=true");
                 string query = "select count(*) from LoginInfo where UserName=@uName and Password=@pwd";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.Add(new SqlParameter("@uName", loginInfo.UserName));
                 cmd.Parameters.Add(new SqlParameter("@pwd", loginInfo.PassWord));
                 conn.Open();
-                int noOfUsers = (int)cmd.ExecuteScalar();
+                int noOfUsers = Convert.ToInt32((int)cmd.ExecuteScalar());
                 conn.Close();
                 if (noOfUsers > 0)
                 {
@@ -62,7 +62,7 @@ namespace FirstMVCApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                SqlConnection con = new SqlConnection(@"server=.\SQLEXPRESS;database=EmployeeDB;integrated security=true");
+                SqlConnection con = new SqlConnection(@"server=HP-UTPAL;database=EmployeeDB;integrated security=true");
                 string query = "SELECT COUNT(*) FROM LOGININFIO WHERE UserName=@uname and Password=@pwd";
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.Add(new SqlParameter("@uName", loginInfo.UserName));
