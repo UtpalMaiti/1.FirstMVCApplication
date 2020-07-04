@@ -57,36 +57,6 @@ namespace FirstMVCApplication.Controllers
         }
 
 
-        [HttpPost]
-        public ActionResult Index2(LoginInfo loginInfo)
-        {
-            if (ModelState.IsValid)
-            {
-                SqlConnection con = new SqlConnection(@"server=HP-UTPAL;database=EmployeeDB;integrated security=true");
-                string query = "SELECT COUNT(*) FROM LOGININFIO WHERE UserName=@uname and Password=@pwd";
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.Add(new SqlParameter("@uName", loginInfo.UserName));
-                cmd.Parameters.Add(new SqlParameter("@pwd", loginInfo.PassWord));
-                con.Open();
-                int noOfUsers = (int)cmd.ExecuteScalar();
-                con.Close();
-                if (noOfUsers>0)
-                {
-                    return RedirectToAction("Home");
-                }
-                else
-                {
-                    ModelState.AddModelError("InvalidLogIn", "Invalid UserName and Password");
-                    return View();
-                }
-
-
-
-            }
-
-
-            return View();
-        }
         public ActionResult Home()
         {
             return View();
